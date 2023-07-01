@@ -61,7 +61,14 @@ header {
     overflow-y: auto; /* Enable scrolling within the right section if needed */
     border-radius: 10px; /* Add border radius */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add soft shadow */
+    display: flex;
+    flex-direction: column;
 
+}
+
+.lists-container {
+    display: flex; /* Add flex display */
+    gap: 20px; /* Add gap between the lists */
 }
 
 .bottom-right-button {

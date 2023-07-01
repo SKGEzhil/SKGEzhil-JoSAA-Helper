@@ -3,6 +3,52 @@
 <head>
     <title>SKGEzhil</title>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <script>
+        function api_data() {
+            fetch('http://localhost:3000/api/items')
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the retrieved data
+                    for (var i = 0; i< data.length; i++){
+                        console.log(data[i].Institute)
+                    }
+
+                    var inst_list = document.getElementById("institutes_list");
+                    var prog_list = document.getElementById("programs_list")
+
+
+                    for (let i = 0; i< data.length; i++){
+                        let newItem = document.createElement("li");
+                        newItem.textContent = data[i].Institute
+                        inst_list.appendChild(newItem)
+                    }
+
+                    for (let i = 0; i< data.length; i++){
+                        let newItem = document.createElement("li");
+                        newItem.textContent = data[i].Program
+                        prog_list.appendChild(newItem)
+                    }
+
+
+                    console.log(data);
+                    console.log(result)
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Error:', error);
+                });
+
+
+        }
+
+        window.addEventListener("DOMContentLoaded", (event) => {
+            var submit = document.getElementById("submit-btn")
+            submit.addEventListener("click", api_data)
+        })
+
+
+
+    </script>
 </head>
 <body>
 <header>
@@ -30,19 +76,20 @@
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
         </select>
-        <button class="bottom-right-button">Button</button>
+        <button class="bottom-right-button" id="submit-btn">Button</button>
     </div>
     <div class="right-section">
         <!-- Content for the right section goes here -->
         <h2>Right Section</h2>
         <h3>Subheading</h3>
-        <ul>
-            <li>List Item 1</li>
-            <li>List Item 2</li>
-            <li>List Item 3</li>
-        </ul>
+        <div class="lists-container">
+            <ul id="institutes_list">
+            </ul>
+            <ul id="programs_list"></ul>
+        </div>
+
+
     </div>
-</div>
 </div>
 </body>
 </html>

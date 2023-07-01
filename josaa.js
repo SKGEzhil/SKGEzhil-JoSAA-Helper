@@ -45,11 +45,64 @@ con.connect(function(err) {
     console.log("Connected!");
 });
 
-con.query(sql, function (err, result) {
-    if (err) throw err;
-    for(var i=0; i< result.length; i++){
-        console.log(result[i].Institute + " " + result[i].Program)
-    }
 
 
+// con.query(sql, function (err, result) {
+//     if (err) throw err;
+//     console.log(result)
+// });
+
+
+// ------------------------------------------------------------------
+//     -----------------------------------------------------------
+
+const express = require('express');
+const path = require('path');
+const app = express();
+// const {result, a} = require('../JOSAA/josaa.js')
+
+// console.log(a)
+
+// Server configuration and routes will be added here
+
+// Start the server
+const port = 3000; // or any other port number
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
+
+app.use(express.static(__dirname + '/public'));
+
+
+app.get('/', (req, res) => {
+    const htmlPath = path.join(__dirname, '/public/index.html');
+    res.sendFile(htmlPath);
+});
+
+
+// Get all items
+app.get('/api/items', (req, res) => {
+
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result)
+        res.json(result)
+    });
+});
+
+// Get a single item by ID
+app.get('/api/items/:id', (req, res) => {
+    const itemId = parseInt(req.params.id);
+    const item = items.find(item => item.id === itemId);
+
+    if (item) {
+        res.json(item);
+    } else {
+        res.status(404).json({ error: 'Item not found' });
+    }
+});
+
+
+
+
+
