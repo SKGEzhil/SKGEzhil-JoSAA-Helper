@@ -116,18 +116,26 @@ app.post('/submit-form', (req, res) => {
 
 });
 
-var inst_type_drop = {}
+var recieved_drop = {}
 app.post('/send/dropdown', (req, res) => {
     console.log("dropdown recieved")
     console.log(req.body.value)
-    res.json('dropdown sent')
-    inst_type_drop = req.body
+    recieved_drop = req.body
+    if (recieved_drop.drop_type == 'institute_type'){
+        res.json({message: 'dropdown sent', drop_val: 'institutes'})
+    }
+    if (recieved_drop.drop_type == 'institute'){
+        res.json({message: 'dropdown sent', drop_val: 'programs'})
+    }
+
+
+
 })
 
 app.get('/dropdown/institutes', (req, res) => {
     let inst_q = ''
-    console.log(inst_type_drop)
-    switch (inst_type_drop.value){
+    console.log(recieved_drop)
+    switch (recieved_drop.value){
         case 'IIT':
             inst_q = 'where institute like "Indian Institute  of Technology%"'
             break
@@ -154,7 +162,15 @@ app.get('/dropdown/institutes', (req, res) => {
 
 })
 
-
+app.get('/dropdown/programs', (req, res) => {
+    let query = `select distinct program from institutes where institute = "${recieved_drop.value}"`
+    con.query(query, function (err, result) {
+        if (err) throw err;
+        console.log(result)
+        console.log("success")
+        res.json(result)
+    });
+})
 
 // Get all items
 app.get('/api/items', (req, res) => {

@@ -33,8 +33,9 @@ function api_data() {
 }
 
 function send_data() {
-    console.log(document.getElementById('institute_type').value)
-    const json_req = {value: document.getElementById('institute_type').value}
+    console.log(document.getElementById(dropdown_req).value)
+    // console.log(dropdown_req)
+    const json_req = {value: document.getElementById(dropdown_req).value , drop_type: dropdown_req}
     fetch('/send/dropdown', {
         method: 'POST',
         headers: {
@@ -44,7 +45,8 @@ function send_data() {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            console.log(data.message)
+            dropdown_res = data.drop_val
             get_dropdown()
         })
         .catch(error => {
@@ -54,18 +56,34 @@ function send_data() {
 
 }
 
+var dropdown_req = ''
+var dropdown_res = ''
+
 function get_dropdown() {
-    fetch('http://localhost:3000/dropdown/institutes')
+    fetch(`http://localhost:3000/dropdown/${dropdown_res}`)
         .then(response => response.json())
         .then(data => {
             // Handle the retrieved data
             console.log(data)
             for (let i =0; i<data.length; i++){
-                let dropdown = document.getElementById('institute')
-                let option = document.createElement('option')
-                option.value = data[i].institute
-                option.text = data[i].institute
-                dropdown.add(option)
+
+                if (dropdown_res == 'institutes'){
+                    let dropdown = document.getElementById('institute')
+                    let option = document.createElement('option')
+                    option.value = data[i].institute
+                    option.text = data[i].institute
+                    dropdown.add(option)
+                }
+
+                if (dropdown_res == 'programs'){
+                    let dropdown = document.getElementById('program')
+                    let option = document.createElement('option')
+                    option.value = data[i].program
+                    option.text = data[i].program
+                    dropdown.add(option)
+                }
+
+
             }
 
         })
@@ -73,6 +91,42 @@ function get_dropdown() {
             // Handle any errors
             console.error('Error:', error);
         });
+}
+
+function inst_type_send() {
+    dropdown_req = 'institute_type'
+    console.log(dropdown_req)
+    send_data()
+}
+
+function inst_send() {
+    dropdown_req = 'institute'
+    console.log(dropdown_req)
+    send_data()
+}
+
+function prog_send() {
+    dropdown_req = 'program'
+    console.log(dropdown_req)
+    send_data()
+}
+
+function gender_send() {
+    dropdown_req = 'gender'
+    console.log(dropdown_req)
+    send_data()
+}
+
+function quota_send() {
+    dropdown_req = 'quota'
+    console.log(dropdown_req)
+    send_data()
+}
+
+function category_send() {
+    dropdown_req = 'category'
+    console.log(dropdown_req)
+    send_data()
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -99,6 +153,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     });
 
-   document.getElementById('institute_type').onchange = send_data
+    document.getElementById('institute_type').onchange = inst_type_send
+    document.getElementById('institute').onchange = inst_send
+    document.getElementById('program').onchange = prog_send
+    document.getElementById('gender').onchange = gender_send
+    document.getElementById('quota').onchange = quota_send
+    document.getElementById('category').onchange = category_send
+
     
 })
