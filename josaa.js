@@ -26,7 +26,7 @@ const bodyParser = require('body-parser');
 // Server configuration and routes will be added here
 
 // Start the server
-const port = 3000; // or any other port number
+const port = 80; // or any other port number
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
