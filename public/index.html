@@ -3,52 +3,9 @@
 <head>
     <title>SKGEzhil</title>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
-    <script>
-        function api_data() {
-            fetch('http://localhost:3000/api/items')
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the retrieved data
-                    for (var i = 0; i< data.length; i++){
-                        console.log(data[i].Institute)
-                    }
 
-                    var inst_list = document.getElementById("institutes_list");
-                    var prog_list = document.getElementById("programs_list")
+    <script src="index.js"></script>
 
-
-                    for (let i = 0; i< data.length; i++){
-                        let newItem = document.createElement("li");
-                        newItem.textContent = data[i].Institute
-                        inst_list.appendChild(newItem)
-                    }
-
-                    for (let i = 0; i< data.length; i++){
-                        let newItem = document.createElement("li");
-                        newItem.textContent = data[i].Program
-                        prog_list.appendChild(newItem)
-                    }
-
-
-                    console.log(data);
-                    console.log(result)
-                })
-                .catch(error => {
-                    // Handle any errors
-                    console.error('Error:', error);
-                });
-
-
-        }
-
-        window.addEventListener("DOMContentLoaded", (event) => {
-            var submit = document.getElementById("submit-btn")
-            submit.addEventListener("click", api_data)
-        })
-
-
-
-    </script>
 </head>
 <body>
 <header>
@@ -61,32 +18,85 @@
 <div class="container">
     <div class="left-section">
         <h2>Left Section</h2>
-        <h3>Subheading 1</h3>
-        <p>Content for subheading 1 goes here.</p>
+        <form id="myForm" action="/submit-form" method="POST">
 
-        <h3>Subheading 2</h3>
-        <p>Content for subheading 2 goes here.</p>
+            <label>Institute Type</label>
 
-        <h3>Subheading 3</h3>
-        <p>Content for subheading 3 goes here.</p>
+            <select id="institute_type" name="inst_type">
+                <option value="select">Select</option>
+                <option value="All">All</option>
+                <option value="IIT">IIT</option>
+                <option value="NIT">NIT</option>
+                <option value="IIIT">IIIT</option>
+                <option value="GFTI">Other GFTIs</option>
+            </select>
 
-        <h3>Dropdown Menu</h3>
-        <select>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </select>
-        <button class="bottom-right-button" id="submit-btn">Button</button>
+            <label>Institute</label>
+            <select id="institute" name="inst">
+                <option value="select">Select</option>
+            </select>
+
+            <label >Program</label>
+            <select id="program" name="prog">
+                <option value="select">Select</option>
+
+            </select>
+
+            <label >Gender</label>
+            <select id="gender" name="gender">
+                <option value="select">Select</option>
+                <option value="Gender-Neutral">Gender-Neutral</option>
+                <option value="Female-Only">Female-Only</option>
+            </select>
+
+            <label >Quota</label>
+            <select id="quota" name="quota">
+                <option value="select">Select</option>
+                <option value="OS">OS</option>
+                <option value="HS">HS</option>
+                <option value="AI">AI</option>
+            </select>
+
+            <label >Category</label>
+            <select id="category" name="category">
+                <option value="select">Select</option>
+                <option value="OPEN">OPEN</option>
+                <option value="OBC-NCL">OBC-NCL</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="EWS">EWS</option>
+                <option value="OPENPWD">OPEN (PWD)</option>
+                <option value="OBC-NCLPWD">OBC-NCL (PWD)</option>
+                <option value="SCPWD">SC (PWD)</option>
+                <option value="STPWD">ST (PWD)</option>
+                <option value="EWSPWD">EWS (PWD)</option>
+            </select>
+
+            <label for="Common_rank">Common Rank</label>
+            <input type="text" id="Common_rank" name="Common_rank" required>
+
+            <label for="Category_rank">Category Rank</label>
+            <input type="text" id="Category_rank" name="Category_rank" required>
+
+
+            <button type="submit" class="bottom-right-button" id="submit-btn">Submit</button>
+        </form>
     </div>
     <div class="right-section">
         <!-- Content for the right section goes here -->
         <h2>Right Section</h2>
         <h3>Subheading</h3>
-        <div class="lists-container">
-            <ul id="institutes_list">
-            </ul>
-            <ul id="programs_list"></ul>
-        </div>
+
+        <table id="myTable">
+            <thead>
+            <tr>
+                <th>Institute</th>
+                <th>Program</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
 
 
     </div>

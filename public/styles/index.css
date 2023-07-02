@@ -50,6 +50,10 @@ header {
     border-radius: 10px; /* Add border radius */
     position: relative; /* Set position to relative for absolute positioning */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add soft shadow */
+    display: flex;
+    flex-direction: column; /* Set flex direction to column */
+    align-items: flex-start; /* Align items to the start (left side) */
+    gap: 10px; /* Add vertical gap between form fields */
 
 }
 
@@ -76,6 +80,22 @@ header {
     bottom: 10px;
     right: 10px;
     margin-top: 10px; /* Add margin from the bottom */
+    align-self: flex-end; /* Align the button to the right side */
+
 }
 
 
+form {
+    display: flex;
+    flex-direction: column; /* Set flex direction to column */
+    align-items: flex-start; /* Align form items to the start (left side) */
+    gap: 10px; /* Add vertical gap between form fields */
+}
+
+label {
+    font-weight: bold;
+}
+
+textarea {
+    height: 100px; /* Adjust the height as needed */
+}
