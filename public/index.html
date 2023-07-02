@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SKGEzhil</title>
+    <title>SKGEzhil JoSAA Helper</title>
     <link rel="stylesheet" type="text/css" href="styles/index.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="index.js"></script>
 
 </head>
 <body>
 <header>
     <div class="header-content">
-        <div class="title">SKGEzhil</div>
+        <div class="title">SKGEzhil JoSAA Helper</div>
         <div class="menu-button">&#9776;</div>
     </div>
 </header>
 
 <div class="container">
     <div class="left-section">
-        <h2>Left Section</h2>
+        <h2>Available Choices</h2>
         <form id="myForm" action="/submit-form" method="POST">
 
             <label>Institute Type</label>
 
-            <select id="institute_type" name="inst_type">
+            <select id="institute_type" name="inst_type" class="dropdown-menu">
                 <option value="select">Select</option>
                 <option value="All">All</option>
                 <option value="IIT">IIT</option>
@@ -32,25 +34,27 @@
             </select>
 
             <label>Institute</label>
-            <select id="institute" name="inst">
+            <select id="institute" name="inst" class="dropdown-menu">
                 <option value="any">Select</option>
+                <option value="any">All</option>
             </select>
 
             <label >Program</label>
-            <select id="program" name="prog">
+            <select id="program" name="prog" class="dropdown-menu">
                 <option value="any">Select</option>
+                <option value="any">All</option>
 
             </select>
 
             <label >Gender</label>
-            <select id="gender" name="gender">
+            <select id="gender" name="gender" class="dropdown-menu">
                 <option value="select">Select</option>
                 <option value="Gender-Neutral">Gender-Neutral</option>
                 <option value="Female-Only">Female-Only</option>
             </select>
 
             <label >Quota</label>
-            <select id="quota" name="quota">
+            <select id="quota" name="quota" class="dropdown-menu">
                 <option value="select">Select</option>
                 <option value="OS">OS</option>
                 <option value="HS">HS</option>
@@ -58,7 +62,7 @@
             </select>
 
             <label >Category</label>
-            <select id="category" name="category">
+            <select id="category" name="category" class="dropdown-menu">
                 <option value="select">Select</option>
                 <option value="OPEN">OPEN</option>
                 <option value="OBC-NCL">OBC-NCL</option>
@@ -73,10 +77,10 @@
             </select>
 
             <label for="Common_rank">Common Rank</label>
-            <input type="text" id="Common_rank" name="Common_rank" required>
+            <input type="number" id="Common_rank" name="Common_rank" class="input_field" required>
 
             <label for="Category_rank">Category Rank</label>
-            <input type="text" id="Category_rank" name="Category_rank" required>
+            <input type="number" id="Category_rank" name="Category_rank" class="input_field">
 
 
             <button type="submit" class="bottom-right-button" id="submit-btn">Submit</button>
@@ -84,10 +88,9 @@
     </div>
     <div class="right-section">
         <!-- Content for the right section goes here -->
-        <h2>Right Section</h2>
-        <h3>Subheading</h3>
+        <h2>Prediction</h2>
 
-        <table id="myTable">
+        <table id="myTable" class="table_container">
             <thead>
             <tr>
                 <th>Institute</th>

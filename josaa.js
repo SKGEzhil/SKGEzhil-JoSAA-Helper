@@ -7,51 +7,11 @@ var con = mysql.createConnection({
     database: "josaa"
 });
 
-// var general_rank = 12301
-// var category_rank = 2923
-// var institute = "any"
-// var program = "any"
-// var gender = "Gender-Neutral"
-// var quota = "AI"
-// var category = "OBC-NCL"
-//
-// if(program == "any"){
-//     var program_q = ""
-// }
-// else {
-//     var program_q = ` Program = "${program}" and`
-// }
-//
-// if(institute == "any"){
-//     var institute_q = ""
-// }
-// else {
-//     var institute_q = ` Institute like "${institute}%" and`
-// }
-//
-// var query = "where" + program_q + institute_q + ` Gender = "${gender}" and` + ` Category = "${category}" and` + ` Quota = "${quota}" and`
 
-// switch (category) {
-//     case "OPEN":
-//         var sql = `select * from institutes ${query} ${general_rank} < close_rank; `
-//         break
-//     default:
-//         var sql = `select * from institutes ${query} ${category_rank} < close_rank; `
-//         console.log(sql)
-// }
-
-con.connect(function(err) {
+con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
 });
-
-
-
-// con.query(sql, function (err, result) {
-//     if (err) throw err;
-//     console.log(result)
-// });
-
 
 // ------------------------------------------------------------------
 //     -----------------------------------------------------------
@@ -61,9 +21,6 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 
-// const {result, a} = require('../JOSAA/josaa.js')
-
-// console.log(a)
 
 // Server configuration and routes will be added here
 
@@ -77,9 +34,9 @@ app.listen(port, () => {
 app.use(express.static(__dirname + '/public'));
 
 // Set up middleware to parse form data
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
@@ -121,13 +78,12 @@ app.post('/send/dropdown', (req, res) => {
     console.log("dropdown recieved")
     console.log(req.body.value)
     recieved_drop = req.body
-    if (recieved_drop.drop_type == 'institute_type'){
+    if (recieved_drop.drop_type == 'institute_type') {
         res.json({message: 'dropdown sent', drop_val: 'institutes'})
     }
-    if (recieved_drop.drop_type == 'institute'){
+    if (recieved_drop.drop_type == 'institute') {
         res.json({message: 'dropdown sent', drop_val: 'programs'})
     }
-
 
 
 })
@@ -135,7 +91,7 @@ app.post('/send/dropdown', (req, res) => {
 app.get('/dropdown/institutes', (req, res) => {
     let inst_q = ''
     console.log(recieved_drop)
-    switch (recieved_drop.value){
+    switch (recieved_drop.value) {
         case 'IIT':
             inst_q = 'where institute like "Indian Institute  of Technology%"'
             break
@@ -163,7 +119,16 @@ app.get('/dropdown/institutes', (req, res) => {
 })
 
 app.get('/dropdown/programs', (req, res) => {
-    let query = `select distinct program from institutes where institute = "${recieved_drop.value}"`
+    if(recieved_drop.value == 'any'){
+        var query = `select distinct program from institutes`
+    }
+    else {
+        var query = `select distinct program
+                 from institutes
+                 where institute = "${recieved_drop.value}"`
+    }
+
+
     con.query(query, function (err, result) {
         if (err) throw err;
         console.log(result)
@@ -177,17 +142,15 @@ app.get('/api/items', (req, res) => {
 
     console.log("hello")
     console.log(form_data)
-    if(form_data.Program_f == "any"){
+    if (form_data.Program_f == "any") {
         var program_q = ""
-    }
-    else {
+    } else {
         var program_q = ` Program = "${form_data.Program_f}" and`
     }
 
-    if(form_data.Institute_f == "any"){
+    if (form_data.Institute_f == "any") {
         var institute_q = ""
-    }
-    else {
+    } else {
         var institute_q = ` Institute like "${form_data.Institute_f}%" and`
     }
 
@@ -197,10 +160,12 @@ app.get('/api/items', (req, res) => {
 
     switch (form_data.Category_f) {
         case "OPEN":
-            var sql = `select * from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+            var sql = `select *
+                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
             break
         default:
-            var sql = `select * from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+            var sql = `select *
+                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
     }
 
 

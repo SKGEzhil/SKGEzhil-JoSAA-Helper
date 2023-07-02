@@ -94,12 +94,26 @@ function get_dropdown() {
 }
 
 function inst_type_send() {
+    let drop_to_rem = document.getElementById('institute')
+    let total_optns = drop_to_rem.options.length
+    console.log(total_optns)
+    for(var i=1;i<total_optns;i++){
+        drop_to_rem.remove(2);
+        console.log(`removed ${i}`)
+    }
     dropdown_req = 'institute_type'
     console.log(dropdown_req)
     send_data()
 }
 
 function inst_send() {
+    let drop_to_rem = document.getElementById('program')
+    let total_optns = drop_to_rem.options.length
+    console.log(total_optns)
+    for(var i=1;i<total_optns;i++){
+        drop_to_rem.remove(2);
+        console.log(`removed ${i}`)
+    }
     dropdown_req = 'institute'
     console.log(dropdown_req)
     send_data()
@@ -121,6 +135,14 @@ function quota_send() {
     dropdown_req = 'quota'
     console.log(dropdown_req)
     send_data()
+}
+
+function remove_table_items(){
+    let table = document.getElementById('tableBody')
+    let total_rows = table.rows.length
+    for (var i=0;i<total_rows;i++){
+        table.deleteRow(0)
+    }
 }
 
 function category_send() {
@@ -145,6 +167,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 // responseTextbox.value = JSON.stringify(data, null, 2);
                 console.log(data)
                 console.log("ok")
+                remove_table_items()
                 api_data()
             })
             .catch(error => {
