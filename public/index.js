@@ -1,5 +1,5 @@
 function api_data() {
-    fetch('http://localhost:3000/api/items')
+    fetch('/api/items')
         .then(response => response.json())
         .then(data => {
             // Handle the retrieved data
@@ -60,7 +60,7 @@ var dropdown_req = ''
 var dropdown_res = ''
 
 function get_dropdown() {
-    fetch(`http://localhost:3000/dropdown/${dropdown_res}`)
+    fetch(`/${dropdown_res}`)
         .then(response => response.json())
         .then(data => {
             // Handle the retrieved data
