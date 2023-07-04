@@ -60,7 +60,7 @@ var dropdown_req = ''
 var dropdown_res = ''
 
 function get_dropdown() {
-    fetch(`/${dropdown_res}`)
+    fetch(`/dropdown/${dropdown_res}`)
         .then(response => response.json())
         .then(data => {
             // Handle the retrieved data

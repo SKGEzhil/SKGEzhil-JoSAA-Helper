@@ -56,6 +56,7 @@ app.post('/submit-form', (req, res) => {
     // Process the form data (e.g., store it in a database, send an email, etc.)
 
     const form = {
+        Institute_type_f: req.body.inst_type,
         Institute_f: req.body.inst,
         Program_f: req.body.prog,
         Gender_f: req.body.gender,
@@ -151,7 +152,20 @@ app.get('/api/items', (req, res) => {
     }
 
     if (form_data.Institute_f == "any") {
-        var institute_q = ""
+        switch (form_data.Institute_type_f) {
+            case 'IIT':
+                var institute_q = ' Institute like "Indian Institute  of Technology%" and'
+                break
+            case 'NIT':
+                var institute_q = ' Institute like "National Institute of Technology%" and'
+                break
+            case 'IIIT':
+                var institute_q = ' Institute like "Indian Institute of Information Technology%" and'
+                break
+            default:
+                var institute_q = ""
+        }
+
     } else {
         var institute_q = ` Institute like "${form_data.Institute_f}%" and`
     }
