@@ -142,55 +142,114 @@ app.get('/dropdown/programs', (req, res) => {
 
 // Get all items
 app.get('/api/items', (req, res) => {
-
     console.log("hello")
     console.log(form_data)
-    if (form_data.Program_f == "any") {
-        var program_q = ""
+    let program_q = '';
+    let institute_q = '';
+    let sql_100 = '';
+    let sql_97 = ''
+    let sql_95 = ''
+    let sql_93 = ''
+    if (form_data.Program_f === "any") {
+        program_q = ""
     } else {
-        var program_q = ` Program = "${form_data.Program_f}" and`
+        program_q = ` Program = "${form_data.Program_f}" and`
     }
 
-    if (form_data.Institute_f == "any") {
+    if (form_data.Institute_f === "any") {
         switch (form_data.Institute_type_f) {
             case 'IIT':
-                var institute_q = ' Institute like "Indian Institute  of Technology%" and'
+                institute_q = ' Institute like "Indian Institute  of Technology%" and'
                 break
             case 'NIT':
-                var institute_q = ' Institute like "National Institute of Technology%" and'
+                institute_q = ' Institute like "National Institute of Technology%" and'
                 break
             case 'IIIT':
-                var institute_q = ' Institute like "Indian Institute of Information Technology%" and'
+                institute_q = ' Institute like "Indian Institute of Information Technology%" and'
                 break
             default:
-                var institute_q = ""
+                institute_q = ""
         }
 
     } else {
-        var institute_q = ` Institute like "${form_data.Institute_f}%" and`
+        institute_q = ` Institute like "${form_data.Institute_f}%" and`
     }
 
-    var query = "where" + program_q + institute_q + ` Gender = "${form_data.Gender_f}" and` + ` Category = "${form_data.Category_f}" and` + ` Quota = "${form_data.Quota_f}" and`
+    const query = "where" + program_q + institute_q + ` Gender = "${form_data.Gender_f}" and` + ` Category = "${form_data.Category_f}" and` + ` Quota = "${form_data.Quota_f}" and`;
 
     console.log(query)
 
     switch (form_data.Category_f) {
         case "OPEN":
-            var sql = `select *
+            sql_100 = `select *
                        from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
             break
         default:
-            var sql = `select *
+            sql_100 = `select *
+                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+    }
+
+    switch (form_data.Category_f) {
+        case "OPEN":
+            sql_97 = `select *
+                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+            break
+        default:
+            sql_97 = `select *
+                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+    }
+
+    switch (form_data.Category_f) {
+        case "OPEN":
+            sql_95 = `select *
+                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+            break
+        default:
+            sql_95 = `select *
+                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+    }
+
+    switch (form_data.Category_f) {
+        case "OPEN":
+            sql_93 = `select *
+                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+            break
+        default:
+            sql_93 = `select *
                        from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
     }
 
 
-    con.query(sql, function (err, result) {
+    con.query(sql_100, function (err, result) {
         if (err) throw err;
         console.log(result)
         console.log("success")
         res.json(result)
     });
+
+    // con.query(sql_95, function (err, result) {
+    //     if (err) throw err;
+    //     console.log(result)
+    //     console.log("success")
+    //     // res.json(result)
+    // });
+    //
+    // con.query(sql_90, function (err, result) {
+    //     if (err) throw err;
+    //     console.log(result)
+    //     console.log("success")
+    //     // res.json(result)
+    // });
+    //
+    // con.query(sql_87, function (err, result) {
+    //     if (err) throw err;
+    //     console.log(result)
+    //     console.log("success")
+    //     // res.json(result)
+    // });
+
+
+
 });
 
 
