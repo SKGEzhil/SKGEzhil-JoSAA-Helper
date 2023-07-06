@@ -214,12 +214,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('quota').onchange = quota_send
     document.getElementById('category').onchange = category_send
 
-    
+
 })
 
 // To toggle menu card view
 function toggleCard() {
-    var cardContainer = document.getElementById('cardContainer');
+    const cardContainer = document.getElementById('cardContainer');
     cardContainer.style.display = cardContainer.style.display === 'none' ? 'block' : 'none';
 }
 
