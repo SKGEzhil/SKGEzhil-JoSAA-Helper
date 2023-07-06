@@ -27,9 +27,23 @@ let received_drop = {};
 // Server configuration and routes will be added here
 
 // Start the server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+// app.listen(port, () => {
+//     console.log(`Server running on port ${port}`);
+// });
+
+var fs = require('fs'),
+    http = require('http'),
+    https = require('https')
+
+var options = {
+    key: fs.readFileSync('certificate/private.pem'),
+    cert: fs.readFileSync('certificate/certificate.pem'),
+};
+
+var server = https.createServer(options, app).listen(port, function(){
+    console.log("Server listening on port " + port);
 });
+
 
 //To serve stylesheet
 app.use(express.static(__dirname + '/public'));
