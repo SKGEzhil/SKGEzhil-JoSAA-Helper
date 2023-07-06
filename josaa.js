@@ -182,71 +182,87 @@ app.get('/api/items', (req, res) => {
     switch (form_data.Category_f) {
         case "OPEN":
             sql_100 = `select *
-                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Commor_rank_f} < (close_rank - 300); `
             break
         default:
             sql_100 = `select *
-                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Category_rank_f} < (close_rank - 300); `
     }
 
     switch (form_data.Category_f) {
         case "OPEN":
             sql_97 = `select *
-                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Commor_rank_f} < (close_rank - 200) and close_rank < (${form_data.Commor_rank_f} +300); `
             break
         default:
             sql_97 = `select *
-                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Category_rank_f} < (close_rank - 200) and close_rank < (${form_data.Category_rank_f} +300); `
     }
 
     switch (form_data.Category_f) {
         case "OPEN":
             sql_95 = `select *
-                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Commor_rank_f} < (close_rank - 100) and close_rank < (${form_data.Commor_rank_f} +200); `
             break
         default:
             sql_95 = `select *
-                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Category_rank_f} < (close_rank - 100) and close_rank < (${form_data.Category_rank_f} +200); `
     }
 
     switch (form_data.Category_f) {
         case "OPEN":
             sql_93 = `select *
-                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Commor_rank_f} < close_rank and close_rank < (${form_data.Commor_rank_f} +100); `
             break
         default:
             sql_93 = `select *
-                       from institutes ${query} ${form_data.Category_rank_f} < close_rank; `
+                       from institutes ${query} ${form_data.Category_rank_f} < close_rank and close_rank < (${form_data.Category_rank_f} +100); `
     }
 
+    let final_result = {}
+    let result_100 = {}
+    let result_97 = {}
+    let result_95 = {}
+    let result_93 = {}
 
     con.query(sql_100, function (err, result) {
         if (err) throw err;
-        console.log(result)
-        console.log("success")
-        res.json(result)
+        result_100 = result
+        result_100.forEach(obj => {
+            obj.chances = 100
+        })
     });
 
-    // con.query(sql_95, function (err, result) {
-    //     if (err) throw err;
-    //     console.log(result)
-    //     console.log("success")
-    //     // res.json(result)
-    // });
-    //
-    // con.query(sql_90, function (err, result) {
-    //     if (err) throw err;
-    //     console.log(result)
-    //     console.log("success")
-    //     // res.json(result)
-    // });
-    //
-    // con.query(sql_87, function (err, result) {
-    //     if (err) throw err;
-    //     console.log(result)
-    //     console.log("success")
-    //     // res.json(result)
-    // });
+
+
+    con.query(sql_97, function (err, result) {
+        if (err) throw err;
+        result_97 = result
+        result_97.forEach(obj => {
+            obj.chances = 97
+        })
+    });
+
+
+
+    con.query(sql_95, function (err, result) {
+        if (err) throw err;
+        result_95 = result
+        result_95.forEach(obj => {
+            obj.chances = 95
+        })
+    });
+
+    con.query(sql_93, function (err, result) {
+        if (err) throw err;
+        result_93 = result
+        result_93.forEach(obj => {
+            obj.chances = 93
+        })
+        let final_result = result_100.concat(result_97, result_95, result_93)
+        res.json(final_result)
+        console.log(final_result)
+    });
 
 
 

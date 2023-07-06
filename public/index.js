@@ -20,6 +20,26 @@ function api_data() {
                 newCell2.textContent = data[i].Program;
                 newRow.appendChild(newCell2);
 
+                var newCell3 = document.createElement("td");
+                newCell3.textContent = data[i].chances + '%';
+
+                switch (data[i].chances){
+                    case 100:
+                        newCell3.style.backgroundColor = 'rgb(0,204,88)'
+                        break
+                    case 97:
+                        newCell3.style.backgroundColor = 'rgb(48,187,108)'
+                        break
+                    case 95:
+                        newCell3.style.backgroundColor = 'rgb(53,172,104)'
+                        break
+                    case 93:
+                        newCell3.style.backgroundColor = 'rgb(71,150,107)'
+                        break
+                }
+
+                newRow.appendChild(newCell3);
+
                 tableBody.appendChild(newRow);
             }
 
@@ -185,3 +205,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     
 })
+
+function toggleCard() {
+    var cardContainer = document.getElementById('cardContainer');
+    cardContainer.style.display = cardContainer.style.display === 'none' ? 'block' : 'none';
+}
+
