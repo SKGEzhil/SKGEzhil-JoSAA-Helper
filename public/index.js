@@ -2,6 +2,7 @@
 // Declaration of Variables
 let dropdown_res;
 let dropdown_req;
+let isCardVisible = false;
 
 // To receive final data after submission
 function receive_data() {
@@ -178,6 +179,29 @@ function category_send() {
     dropdown_req = 'category'
     console.log(dropdown_req)
     send_dropdown()
+    if (document.getElementById('category').value === 'OPEN'){
+        document.getElementById('Category_rank').disabled = true
+        document.getElementById('Category_rank').style.backgroundColor = 'rgb(243,243,243)'
+    }
+    else{
+        document.getElementById('Category_rank').disabled = false
+        document.getElementById('Category_rank').style.backgroundColor = 'rgb(255,255,255)'
+
+    }
+
+}
+
+
+// Toggle Menu Card
+function toggleCard() {
+    const cardContainer = document.getElementById('cardContainer');
+    console.log('clicked')
+    isCardVisible = !isCardVisible;
+    if (isCardVisible) {
+        cardContainer.style.display = 'block';
+    } else {
+        cardContainer.style.display = 'none';
+    }
 }
 
 //DOM manipulation inside window object (To ensure that DOM is loaded, otherwise It will show null error)
@@ -213,13 +237,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('gender').onchange = gender_send
     document.getElementById('quota').onchange = quota_send
     document.getElementById('category').onchange = category_send
-
+    
+    // Menu Button click event
+    document.getElementById('menu-btn').addEventListener('click', toggleCard)
+    
 
 })
 
-// To toggle menu card view
-function toggleCard() {
-    const cardContainer = document.getElementById('cardContainer');
-    cardContainer.style.display = cardContainer.style.display === 'none' ? 'block' : 'none';
-}
 
