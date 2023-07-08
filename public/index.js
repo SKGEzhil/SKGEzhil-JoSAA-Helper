@@ -13,44 +13,58 @@ function receive_data() {
             for (i = 0; i< data.length; i++){
                 console.log(data[i].Institute)
             }
-
+            
             // To append data into table
             const tableBody = document.getElementById("tableBody");
+            const availability = document.getElementById('availability')
 
-            for (i = 0; i < data.length; i++) {
-                const newRow = document.createElement("tr");
-
-                const newCell1 = document.createElement("td");
-                newCell1.textContent = data[i].Institute;
-                newRow.appendChild(newCell1);
-
-                const newCell2 = document.createElement("td");
-                newCell2.textContent = data[i].Program;
-                newRow.appendChild(newCell2);
-
-                const newCell3 = document.createElement("td");
-                newCell3.textContent = data[i].chances + '%';
-
-                // For changing cell color based on chance percentage
-                switch (data[i].chances){
-                    case 100:
-                        newCell3.style.backgroundColor = 'rgb(0,204,88)'
-                        break
-                    case 97:
-                        newCell3.style.backgroundColor = 'rgb(48,187,108)'
-                        break
-                    case 95:
-                        newCell3.style.backgroundColor = 'rgb(53,172,104)'
-                        break
-                    case 93:
-                        newCell3.style.backgroundColor = 'rgb(71,150,107)'
-                        break
-                }
-
-                newRow.appendChild(newCell3);
-
-                tableBody.appendChild(newRow);
+            if (data.length === 0){
+                availability.style.display = 'flex'
+                console.log('no data')
             }
+            else {
+                
+                if (availability.style.display === 'flex'){
+                    availability.style.display = 'none'
+                }
+                
+                for (i = 0; i < data.length; i++) {
+
+                    const newRow = document.createElement("tr");
+
+                    const newCell1 = document.createElement("td");
+                    newCell1.textContent = data[i].Institute;
+                    newRow.appendChild(newCell1);
+
+                    const newCell2 = document.createElement("td");
+                    newCell2.textContent = data[i].Program;
+                    newRow.appendChild(newCell2);
+
+                    const newCell3 = document.createElement("td");
+                    newCell3.textContent = data[i].chances + '%';
+
+                    // For changing cell color based on chance percentage
+                    switch (data[i].chances){
+                        case 100:
+                            newCell3.style.backgroundColor = 'rgb(0,204,88)'
+                            break
+                        case 97:
+                            newCell3.style.backgroundColor = 'rgb(48,187,108)'
+                            break
+                        case 95:
+                            newCell3.style.backgroundColor = 'rgb(53,172,104)'
+                            break
+                        case 93:
+                            newCell3.style.backgroundColor = 'rgb(71,150,107)'
+                            break
+                    }
+
+                    newRow.appendChild(newCell3);
+
+                    tableBody.appendChild(newRow);
+                }
+            }
+            
 
         })
         .catch(error => {

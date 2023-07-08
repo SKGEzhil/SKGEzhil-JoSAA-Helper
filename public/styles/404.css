@@ -1,0 +1,20 @@
+.text-404{
+    font-size: 130px;
+    font-family: Arial, serif;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+
+.text{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-family: Arial, serif;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    background-color: #ff5757;
+}

@@ -254,3 +254,9 @@ app.get('/result', (req, res) => {
 
 });
 
+// 404 Error handling
+app.use((req, res, next) => {
+    res.status(404);
+    res.sendFile(path.join(__dirname, 'public/404.html')); // Replace '404.html' with your actual file name and path
+});
+

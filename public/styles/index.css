@@ -255,3 +255,11 @@ option{
     padding: 10px;
     margin: 10px;
 }
+
+.availability{
+    display: none;
+    color: #ff7474;
+    margin-top: 50px;
+    font-size: 24px;
+    justify-content: center;
+}
