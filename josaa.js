@@ -33,14 +33,13 @@ const fs = require('fs'),
     https = require('https');
 
 const options = {
-    key: fs.readFileSync('certificate/private.pem'),
-    cert: fs.readFileSync('certificate/certificate.pem'),
+    key: fs.readFileSync('certificate/skgezhil-josaa-com/private.pem'),
+    cert: fs.readFileSync('certificate/skgezhil-josaa-com/certificate.pem'),
 };
 
 https.createServer(options, app).listen(port, function(){
     console.log("Server listening on port " + port);
 });
-
 
 //To serve stylesheet
 app.use(express.static(__dirname + '/public'));
@@ -55,7 +54,6 @@ app.get('/', (req, res) => {
     const htmlPath = path.join(__dirname, '/public/index.html');
     res.sendFile(htmlPath);
 });
-
 
 // Form Submission
 app.post('/submit-form', (req, res) => {
