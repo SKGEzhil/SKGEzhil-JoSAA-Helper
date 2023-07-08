@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /certificate/
+
+Sitemap: https://skgezhil-josaa.com/sitemap.xml

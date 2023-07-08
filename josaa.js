@@ -55,6 +55,18 @@ app.get('/', (req, res) => {
     res.sendFile(htmlPath);
 });
 
+app.get('/robots.txt', (req, res) => {
+    res.sendFile(__dirname + '/robots.txt');
+});
+app.get('/sitemap.xml', (req, res) => {
+    // Read the sitemap file and send it as the response
+    const sitemapPath = __dirname + '/sitemap.xml';
+    const sitemapXml = fs.readFileSync(sitemapPath, 'utf-8');
+
+    res.header('Content-Type', 'application/xml');
+    res.send(sitemapXml);
+});
+
 // Form Submission
 app.post('/submit-form', (req, res) => {
 
