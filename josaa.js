@@ -1,11 +1,13 @@
 
 //MySQL connection
+const config = require('./config.js');
+const db_password = config.dbPassword
 const mysql = require('mysql');
 const con = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "password",
+    password: db_password,
     database: "josaa"
 });
 
