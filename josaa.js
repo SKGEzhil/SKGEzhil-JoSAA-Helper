@@ -43,6 +43,11 @@ https.createServer(options, app).listen(port, function(){
     console.log("Server listening on port " + port);
 });
 
+// app.listen(port, () => {
+//     console.log(`Server running on port ${port}`);
+// });
+
+
 //To serve stylesheet
 app.use(express.static(__dirname + '/public'));
 
@@ -82,8 +87,8 @@ app.post('/submit-form', (req, res) => {
         Gender_f: req.body.gender,
         Quota_f: req.body.quota,
         Category_f: req.body.category,
-        Common_rank_f: req.body.Common_rank,
-        Category_rank_f: req.body.Category_rank
+        Common_rank_f: req.body.common_rank,
+        Category_rank_f: req.body.category_rank
     }
     console.log(req.body)
     console.log(form)
