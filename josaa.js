@@ -116,6 +116,18 @@ app.post('/send/dropdown', (req, res) => {
 
 })
 
+app.post('/feedback-submit', (req, res) =>{
+    console.log(req.body)
+    let rating = req.body.rating
+    let feedback = req.body.feedback_
+    let query = `insert into feedback values (${rating}, "${feedback}")`
+    con.query(query, function (err, result) {
+        if (err) throw err;
+    res.json(feedback)
+    });
+
+})
+
 // Route to send dropdown menu
 app.get('/dropdown/institutes', (req, res) => {
     let inst_q
