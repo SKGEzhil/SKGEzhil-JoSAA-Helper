@@ -3,6 +3,17 @@ let dropdown_res;
 let dropdown_req;
 let isCardVisible = false;
 
+function Snackbar() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
 function send_feedback() {
     document.getElementById('feedbackForm').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -290,6 +301,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     submitBtn.addEventListener('click', () => {
         send_feedback()
         popup.style.display = 'none';
+        Snackbar()
     });
 
     // Menu Button click event
