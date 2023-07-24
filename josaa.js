@@ -120,7 +120,7 @@ app.post('/feedback-submit', (req, res) =>{
     console.log(req.body)
     let rating = req.body.rating
     let feedback = req.body.feedback_
-    let query = `insert into feedback values (${rating}, "${feedback}")`
+    let query = `insert into feedback (Rating, Feedback)values (${rating}, "${feedback}")`
     con.query(query, function (err, result) {
         if (err) throw err;
     res.json(feedback)

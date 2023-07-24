@@ -22,6 +22,27 @@
     </div>
 </header>
 
+<div id="popup" class="popup">
+    <span class="close-btn" id="closePopupBtn">&times;</span>
+    <form id="feedbackForm" action="/feedback-submit" method="POST" class="feedback_form">
+
+    <div class="popup-content">
+        <h2>Rating</h2>
+        <div class="rating" id="rating">
+            <span class="star" data-rating="1">&#9733;</span>
+            <span class="star" data-rating="2">&#9733;</span>
+            <span class="star" data-rating="3">&#9733;</span>
+            <span class="star" data-rating="4">&#9733;</span>
+            <span class="star" data-rating="5">&#9733;</span>
+        </div>
+        <h2>Feedback</h2>
+        <input class="hidden" type="hidden" id="selectedRating" name="rating">
+        <textarea type="text" placeholder="Enter your text here" name="feedback_"></textarea>
+        <button id="submitBtn" class="feedback-submit-btn">Submit</button>
+    </div>
+    </form>
+</div>
+
 <div class="container">
     <div class="left-section">
         <h2 style="color: #001d31;">Available Choices</h2>
@@ -142,6 +163,13 @@
                 <div class="menu-card-btn">
                     <img src="assets/github.png" class="menu-card-btn-icon">
                     <div class="menu-card-btn-text">Source Code</div>
+                </div>
+            </a>
+
+            <a id="openPopupBtn" class="menu-card-btn-link">
+                <div class="menu-card-btn">
+                    <img src="assets/github.png" class="menu-card-btn-icon">
+                    <div class="menu-card-btn-text">Feedback</div>
                 </div>
             </a>
 

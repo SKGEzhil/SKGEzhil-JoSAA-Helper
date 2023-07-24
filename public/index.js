@@ -1,8 +1,30 @@
-
 // Declaration of Variables
 let dropdown_res;
 let dropdown_req;
 let isCardVisible = false;
+
+function send_feedback() {
+    document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const form = event.target;
+
+        fetch('/feedback-submit', {
+            method: form.method,
+            body: new URLSearchParams(new FormData(form))
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                console.log("ok")
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+    });
+
+}
 
 // To receive final data after submission
 function receive_data() {
@@ -10,24 +32,23 @@ function receive_data() {
         .then(response => response.json())
         .then(data => {
             let i;
-            for (i = 0; i< data.length; i++){
+            for (i = 0; i < data.length; i++) {
                 console.log(data[i].Institute)
             }
-            
+
             // To append data into table
             const tableBody = document.getElementById("tableBody");
             const availability = document.getElementById('availability')
 
-            if (data.length === 0){
+            if (data.length === 0) {
                 availability.style.display = 'flex'
                 console.log('no data')
-            }
-            else {
-                
-                if (availability.style.display === 'flex'){
+            } else {
+
+                if (availability.style.display === 'flex') {
                     availability.style.display = 'none'
                 }
-                
+
                 for (i = 0; i < data.length; i++) {
 
                     const newRow = document.createElement("tr");
@@ -44,7 +65,7 @@ function receive_data() {
                     newCell3.textContent = data[i].chances + '%';
 
                     // For changing cell color based on chance percentage
-                    switch (data[i].chances){
+                    switch (data[i].chances) {
                         case 100:
                             newCell3.style.backgroundColor = 'rgb(0,204,88)'
                             break
@@ -64,7 +85,7 @@ function receive_data() {
                     tableBody.appendChild(newRow);
                 }
             }
-            
+
 
         })
         .catch(error => {
@@ -79,7 +100,7 @@ function receive_data() {
 function send_dropdown() {
     console.log(document.getElementById(dropdown_req).value)
     // console.log(dropdown_req)
-    const json_req = {value: document.getElementById(dropdown_req).value , drop_type: dropdown_req}
+    const json_req = {value: document.getElementById(dropdown_req).value, drop_type: dropdown_req}
     fetch('/send/dropdown', {
         method: 'POST',
         headers: {
@@ -105,9 +126,9 @@ function get_dropdown() {
         .then(data => {
             // Handle the retrieved data
             console.log(data)
-            for (let i =0; i<data.length; i++){
+            for (let i = 0; i < data.length; i++) {
 
-                if (dropdown_res === 'institutes'){
+                if (dropdown_res === 'institutes') {
                     let dropdown = document.getElementById('institute')
                     let option = document.createElement('option')
                     option.value = data[i].institute
@@ -115,7 +136,7 @@ function get_dropdown() {
                     dropdown.add(option)
                 }
 
-                if (dropdown_res === 'programs'){
+                if (dropdown_res === 'programs') {
                     let dropdown = document.getElementById('program')
                     let option = document.createElement('option')
                     option.value = data[i].program
@@ -140,7 +161,7 @@ function inst_type_send() {
     let drop_to_rem = document.getElementById('institute')
     let total_optns = drop_to_rem.options.length
     console.log(total_optns)
-    for(let i=1; i<total_optns; i++){
+    for (let i = 1; i < total_optns; i++) {
         drop_to_rem.remove(2);
         console.log(`removed ${i}`)
     }
@@ -153,7 +174,7 @@ function inst_send() {
     let drop_to_rem = document.getElementById('program')
     let total_optns = drop_to_rem.options.length
     console.log(total_optns)
-    for(var i=1;i<total_optns;i++){
+    for (var i = 1; i < total_optns; i++) {
         drop_to_rem.remove(2);
         console.log(`removed ${i}`)
     }
@@ -181,10 +202,10 @@ function quota_send() {
 }
 
 //To remove table items everytime after submitting
-function remove_table_items(){
+function remove_table_items() {
     let table = document.getElementById('tableBody')
     let total_rows = table.rows.length
-    for (let i=0; i<total_rows; i++){
+    for (let i = 0; i < total_rows; i++) {
         table.deleteRow(0)
     }
 }
@@ -193,11 +214,10 @@ function category_send() {
     dropdown_req = 'category'
     console.log(dropdown_req)
     send_dropdown()
-    if (document.getElementById('category').value === 'OPEN'){
+    if (document.getElementById('category').value === 'OPEN') {
         document.getElementById('Category_rank').disabled = true
         document.getElementById('Category_rank').style.backgroundColor = 'rgb(243,243,243)'
-    }
-    else{
+    } else {
         document.getElementById('Category_rank').disabled = false
         document.getElementById('Category_rank').style.backgroundColor = 'rgb(255,255,255)'
 
@@ -222,7 +242,7 @@ function toggleCard() {
 window.addEventListener("DOMContentLoaded", (event) => {
 
     // Form Submission
-    document.getElementById('myForm').addEventListener('submit', function(event) {
+    document.getElementById('myForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const form = event.target;
@@ -251,11 +271,74 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('gender').onchange = gender_send
     document.getElementById('quota').onchange = quota_send
     document.getElementById('category').onchange = category_send
-    
+
+    // Feedback Actions
+
+    const openPopupBtn = document.getElementById('openPopupBtn');
+    const popup = document.getElementById('popup');
+    const submitBtn = document.getElementById('submitBtn');
+    const closeBtn = document.getElementById('closePopupBtn')
+
+    openPopupBtn.addEventListener('click', () => {
+        popup.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+    submitBtn.addEventListener('click', () => {
+        send_feedback()
+        popup.style.display = 'none';
+    });
+
     // Menu Button click event
     document.getElementById('menu-btn').addEventListener('click', toggleCard)
-    
 
+
+    // RatingBar Manipulation
+    const ratingBar = document.getElementById('rating');
+    const stars = ratingBar.getElementsByClassName('star');
+    const selectedRatingField = document.getElementById('selectedRating');
+
+    let selectedRating = 0;
+
+    function updateRating() {
+        selectedRatingField.value = selectedRating;
+    }
+
+    function setRating(rating) {
+        selectedRating = rating;
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+        for (let i = 0; i < rating; i++) {
+            stars[i].classList.add('active');
+        }
+        updateRating();
+    }
+
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].addEventListener('click', () => {
+            setRating(i + 1);
+            console.log(i)
+        });
+    }
+
+    setRating(3);
+
+
+// Text Box height adjustment
+    const textInput = document.getElementById('textInput');
+
+    function updateTextInputHeight() {
+        textInput.style.height = 'auto'; // Reset the height to auto
+        textInput.style.height = `${textInput.scrollHeight}px`; // Set the height to the scroll height
+    }
+
+    textInput.addEventListener('input', updateTextInputHeight);
+
+    updateTextInputHeight();
 })
 
 
