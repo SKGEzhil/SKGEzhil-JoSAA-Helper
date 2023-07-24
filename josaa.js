@@ -22,7 +22,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
-const port = 443;
+const port = 3000;
 let form_data = {};
 let received_drop = {};
 
@@ -42,7 +42,7 @@ const options = {
 https.createServer(options, app).listen(port, function(){
     console.log("Server listening on port " + port);
 });
-
+//
 // app.listen(port, () => {
 //     console.log(`Server running on port ${port}`);
 // });
@@ -161,7 +161,7 @@ app.get('/dropdown/institutes', (req, res) => {
 
 app.get('/dropdown/programs', (req, res) => {
     let query
-    if (received_drop.value === 'any') {
+    if (received_drop.value === 'All') {
         query = `select distinct program
                  from institutes`
     } else {
@@ -194,13 +194,13 @@ app.get('/result', (req, res) => {
     let result_95 = {}
     let result_93 = {}
 
-    if (form_data.Program_f === "any") {
+    if (form_data.Program_f === "All") {
         program_q = ""
     } else {
         program_q = ` Program = "${form_data.Program_f}" and`
     }
 
-    if (form_data.Institute_f === "any") {
+    if (form_data.Institute_f === "All") {
         switch (form_data.Institute_type_f) {
             case 'IIT':
                 institute_q = ' Institute like "Indian Institute  of Technology%" and'
@@ -283,9 +283,26 @@ app.get('/result', (req, res) => {
 
 });
 
+app.get("/feedback", (req, res) => {
+    const htmlPath = path.join(__dirname, '/public/feedback.html');
+    res.sendFile(htmlPath);
+})
+
+app.get("/feedback-request", (req,res) =>{
+    let query = "Select * from feedback;"
+    con.query(query, function (err, result) {
+        if (err) throw err;
+        res.json(result)
+        console.log(result)
+    });
+})
+
 // 404 Error handling
 app.use((req, res, next) => {
     res.status(404);
     res.sendFile(path.join(__dirname, 'public/404.html')); // Replace '404.html' with your actual file name and path
 });
+
+
+
 
