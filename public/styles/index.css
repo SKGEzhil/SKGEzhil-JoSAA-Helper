@@ -265,7 +265,7 @@ option{
 }
 
 .popup {
-    display: block;
+    display: none;
     z-index: 10000;
     border-radius: 10px;
     position: fixed;
