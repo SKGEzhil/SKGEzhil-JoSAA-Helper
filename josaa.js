@@ -230,7 +230,7 @@ app.get('/result', (req, res) => {
             sql_95 = `select *
                       from institutes ${query} ${form_data.Common_rank_f} < (close_rank - 100) and close_rank < (${form_data.Common_rank_f} +200); `
             sql_93 = `select *
-                      from institutes ${query} ${form_data.Common_rank_f} < close_rank and close_rank < (${form_data.Common_rank_f} +100); `
+                      from institutes ${query} ${form_data.Common_rank_f} <= close_rank and close_rank < (${form_data.Common_rank_f} +100); `
             break
 
         default:
@@ -241,7 +241,7 @@ app.get('/result', (req, res) => {
             sql_95 = `select *
                       from institutes ${query} ${form_data.Category_rank_f} < (close_rank - 100) and close_rank < (${form_data.Category_rank_f} +200); `
             sql_93 = `select *
-                      from institutes ${query} ${form_data.Category_rank_f} < close_rank and close_rank < (${form_data.Category_rank_f} +100); `
+                      from institutes ${query} ${form_data.Category_rank_f} <= close_rank and close_rank < (${form_data.Category_rank_f} +100); `
 
 
     }
