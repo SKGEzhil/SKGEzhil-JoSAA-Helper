@@ -410,3 +410,13 @@ option{
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+.note {
+    position: fixed;
+    bottom: -10px;
+    right: 15px;
+    margin-top: 10px; /* Add margin from the bottom */
+    align-self: flex-end; /* Align the button to the right side */
+    font-size: 13px;
+
+}
