@@ -200,7 +200,7 @@ th {
     right: 10px;
     width: 300px;
     z-index: 1000;
-    display: block;
+    display: none;
 
 }
 
