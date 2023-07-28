@@ -233,6 +233,7 @@ app.get('/result', (req, res) => {
                       from institutes ${query} ${form_data.Common_rank_f} <= close_rank and close_rank < (${form_data.Common_rank_f} +100); `
             break
 
+
         default:
             sql_100 = `select *
                        from institutes ${query} ${form_data.Category_rank_f} < (close_rank - 300); `
