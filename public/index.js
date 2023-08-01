@@ -2,6 +2,8 @@
 let dropdown_res;
 let dropdown_req;
 let isCardVisible = false;
+let isSubmitted = false;
+
 
 function Snackbar() {
     // Get the snackbar DIV
@@ -236,7 +238,6 @@ function category_send() {
 
 }
 
-
 // Toggle Menu Card
 function toggleCard() {
     const cardContainer = document.getElementById('cardContainer');
@@ -249,13 +250,39 @@ function toggleCard() {
     }
 }
 
+function mobileInterface(media_query) {
+    if (media_query.matches){
+        let left_section = document.getElementById("left-section")
+        let right_section = document.getElementById("right-section")
+        if (isSubmitted){
+            right_section.style.display = "flex"
+            left_section.style.display = "none"
+        } else {
+            right_section.style.display = "none"
+            left_section.style.display = "flex"
+        }
+    } else {
+        document.getElementById("right-section").style.display = "flex"
+        document.getElementById("left-section").style.display = "flex"
+    }
+}
+
 //DOM manipulation inside window object (To ensure that DOM is loaded, otherwise It will show null error)
 window.addEventListener("DOMContentLoaded", (event) => {
+
+    var media_query = window.matchMedia("(max-width: 700px)")
+    mobileInterface(media_query)
+    media_query.addListener(mobileInterface)
+    var baseURL = document.location.href
 
     // Form Submission
     document.getElementById('myForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
+        location.href = `${baseURL}#right-section`
+        console.log(`BASE URL : ${baseURL}`)
+        isSubmitted = true
+        mobileInterface(media_query)
         const form = event.target;
 
         fetch('/submit-form', {
@@ -274,6 +301,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
             });
 
     });
+
+    window.onhashchange = function () {
+        if (window.location.href === baseURL){
+            console.log("CHANGED")
+            isSubmitted = false
+            mobileInterface(media_query)
+        }
+    }
 
     // Dropdown Controls
     document.getElementById('institute_type').onchange = inst_type_send

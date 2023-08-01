@@ -140,6 +140,7 @@ textarea {
     padding: 10px;
     outline: none;
     border: none;
+    white-space: normal;
     min-width: 200px;
     max-width: 100%;
     border-radius: 7px;
@@ -390,6 +391,7 @@ option{
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
@@ -411,6 +413,21 @@ option{
     to {bottom: 0; opacity: 0;}
 }
 
+@keyframes slideaway {
+    from { display: block; }
+    to { transform: translateY(40px); opacity: 0;}
+}
+
+.hide {
+    animation: slideaway 200ms;
+    display: none;
+}
+
+.showw {
+    animation: slideaway 200ms;
+    display: flex;
+}
+
 .note {
     position: fixed;
     bottom: -10px;
@@ -420,3 +437,13 @@ option{
     font-size: 13px;
 
 }
+
+/*@media only screen and (max-width: 700px) {*/
+/*    body {*/
+/*        background-color: lightblue;*/
+/*    }*/
+
+/*    .right-section{*/
+/*        display: none;*/
+/*    }*/
+/*}*/

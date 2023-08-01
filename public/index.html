@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>SKGEzhil JoSAA Helper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="This tool provides a straightforward way to determine the availability of seats based on your JEE Mains or JEE Advanced Rank. With this tool, you can easily find out the number of seats that are currently available for your specific rank in the JEE Advanced exam. It simplifies the process of exploring your options and making informed decisions regarding college admissions. The data used for this tool is derived from the JEE Advanced 2022, ensuring the information is accurate and up-to-date.">
     <link rel="stylesheet" type="text/css" href="styles/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +47,7 @@
 </div>
 
 <div class="container">
-    <div class="left-section">
+    <div class="left-section" id="left-section">
         <h2 style="color: #001d31;">Select Your Preference</h2>
         <form id="myForm" action="/submit-form" method="POST">
 
@@ -110,11 +111,12 @@
             <label for="Category_rank">Category Rank</label>
             <input type="number" id="Category_rank" name="category_rank" class="input_field">
 
-
-            <button type="submit" class="bottom-right-button" id="submit-btn">Submit</button>
+            <a href="#right-section" >
+                <button type="submit" class="bottom-right-button" id="submit-btn">Submit</button>
+            </a>
         </form>
     </div>
-    <div class="right-section">
+    <div class="right-section" id="right-section">
         <!-- Content for the right section goes here -->
         <h2 style="color: #001d31;">Prediction</h2>
 
