@@ -279,10 +279,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('myForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        location.href = `${baseURL}#right-section`
-        console.log(`BASE URL : ${baseURL}`)
-        isSubmitted = true
-        mobileInterface(media_query)
+
         const form = event.target;
 
         fetch('/submit-form', {
@@ -299,6 +296,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
             .catch(error => {
                 console.error('Error:', error);
             });
+
+        location.href = `${baseURL}#right-section`
+        console.log(`BASE URL : ${baseURL}`)
+        isSubmitted = true
+        mobileInterface(media_query)
 
     });
 
